@@ -1,0 +1,18 @@
+---
+- name: install tor
+  package: name=tor state=latest
+
+- name: enable and start tor service
+  service: name=tor state=started enabled=yes
+
+- name: install apt-transport-tor
+  package: name=apt-transport-tor state=latest
+
+# TODO: elegantly manage what Tor proxy to use for apt; until
+# then do not use hidden service mirrors
+- name: template /etc/apt/sources.list to use Tor hidden service mirror
+  template: src=apt_sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=644 backup=yes
+
+- name: apt-get update to download package lists from Tor hidden service
+  apt:
+    update_cache: yes

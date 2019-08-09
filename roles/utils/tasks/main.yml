@@ -1,0 +1,25 @@
+---
+- name: install tmux
+  package: name=tmux state=latest
+
+## This was taken from github.com/seebi/tmux-colors-solarized
+## love ya <3
+- name: make tmux solarized
+  template:
+    src: tmuxcolors-dark.conf
+    dest: /etc/tmux.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install curl
+  package: name=curl state=latest
+
+- name: install silversearcher
+  package: name=silversearcher-ag state=latest
+
+- name: install dstat
+  package: name=dstat state=latest
+
+- name: install powertop
+  package: name=powertop state=latest

@@ -1,0 +1,3 @@
+---
+- name: install forensics-full
+  package: name=forensics-full state=latest

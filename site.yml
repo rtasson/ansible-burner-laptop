@@ -1,0 +1,11 @@
+---
+## This playbook deploys my burner laptop from scratch.
+
+- hosts: all
+  roles:
+    - tor
+    - base
+    - utils
+    - defense
+    - build
+    - forensics

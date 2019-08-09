@@ -1,0 +1,27 @@
+---
+- name: install webext-privacy-badger
+  package: name=webext-privacy-badger state=latest
+
+- name: install webext-noscript
+  package: name=webext-noscript state=latest
+
+- name: install ufw
+  package: name=ufw state=latest
+
+## TODO: Unclear if "deny all inbound by default" actually works;
+## test this.
+- name: enable ufw and deny all inbound by default
+  ufw:
+    state: enabled
+    policy: deny
+    direction: incoming
+
+- name: turn ufw logging on
+  ufw:
+    logging: on
+
+- name: uninstall avahi
+  package: name=avahi-daemon state=absent
+
+- name: uninstall minissdpd
+  package: name=minissdpd state=absent

@@ -1,0 +1,13 @@
+---
+
+- name: apt full upgrade
+  apt:
+    upgrade: full
+
+- name: apt dist upgrade
+  apt:
+    upgrade: dist
+
+- name: another apt full upgrade
+  apt:
+    upgrade: full
