@@ -7,5 +7,6 @@
     - base
     - utils
     - defense
+    - vpn
     - build
     - forensics

@@ -1,5 +1,11 @@
 # ansible-burner-laptop
-Configures my burner laptop from a scratch Debian box. This typically happens before or during a security convention (DEFCON, CCC, etc.) and imagines all networks being hostile. It first install tor, and configures Debian to fetch all packages from their hidden service. It then upgrades the laptop to Debian Testing, and configures ufw, a firewall, to deny all incoming connections. Then it installs a bunch of useful packages for security conventions, including forensics tools, build utilities, and random utils (solarized tmux, curl, etc.)
+Configures a burner laptop from a base Debian box. This typically happens before or during a security convention (DEFCON, CCC, etc.) and imagines all networks being hostile.
+
+It does a couple of things:
+* installs Tor and sets the default apt repositories to point to Debian's hidden service
+* upgrades Debian to Testing
+* some basic hardening, including installing UFW, uninstalling noisy networking packages & installs apparmor
+* installs a bunch of utilities - wireguard, build utils, forensics utils, solarized tmux
 
 ## Usage
 Clone this repo, then run:
@@ -7,3 +13,8 @@ Clone this repo, then run:
 sudo apt install ansible
 sudo ./localhost.sh
 ```
+
+## todo
+* create a firefox apparmor profile
+* further hardening - but what??
+* get wireguard a bit more configured - create interface

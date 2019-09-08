@@ -23,3 +23,9 @@
 
 - name: install powertop
   package: name=powertop state=latest
+
+- name: install tlp
+  package: name=tlp state=latest
+
+- name: install dnsutils
+  package: name=dnsutils state=latest

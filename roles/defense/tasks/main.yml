@@ -5,6 +5,9 @@
 - name: install webext-noscript
   package: name=webext-noscript state=latest
 
+- name: install webext-https-everywhere
+  package: name=webext-https-everywhere state=latest
+
 - name: install ufw
   package: name=ufw state=latest
 
@@ -25,3 +28,12 @@
 
 - name: uninstall minissdpd
   package: name=minissdpd state=absent
+
+- name: install apparmor
+  package: name=apparmor state=latest
+
+- name: install apparmor-profiles
+  package: name=apparmor-profiles state=latest
+
+- name: install apparmor-profiles-extra
+  package: name=apparmor-profiles-extra state=latest

@@ -1,3 +1,9 @@
 ---
 - name: install forensics-full
   package: name=forensics-full state=latest
+
+- name: install kismet
+  package: name=kismet state=latest
+
+- name: install kismet-plugins
+  package: name=kismet-plugins state=latest

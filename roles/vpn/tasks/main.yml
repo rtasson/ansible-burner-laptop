@@ -1,0 +1,84 @@
+---
+- name: install webext-proxy-switcher
+  package: name=webext-proxy-switcher state=latest
+
+- name: install openvpn
+  package: name=openvpn state=latest
+
+- name: install openvpn-auth-ldap
+  package: name=openvpn-auth-ldap state=latest
+
+- name: install openvpn-auth-radius
+  package: name=openvpn-auth-radius state=latest
+
+- name: install openvpn-systemd-resolved
+  package: name=openvpn-systemd-resolved state=latest
+
+- name: install network-manager-openvpn
+  package: name=network-manager-openvpn state=latest
+
+- name: install network-manager-openvpn-gnome
+  package: name=network-manager-openvpn-gnome state=latest
+
+- name: set wireguard apt source to 'unstable' distribution
+  template:
+    src: unstable-wireguard.list.j2
+    dest: /etc/apt/sources.list.d/unstable-wireguard.list
+    owner: root
+    group: root
+    mode: 0644
+
+- name: set unstable packages to lowest priority
+  template:
+    src: limit-unstable.j2
+    dest: /etc/apt/preferences.d/limit-unstable
+    owner: root
+    group: root
+    mode: 0644
+
+- name: update package list
+  apt:
+    update_cache: yes
+
+- name: install wireguard
+  package: name=wireguard state=latest
+
+- name: create /etc/wireguard
+  file:
+    state: directory
+    path: /etc/wireguard
+    mode: 0700
+    owner: root
+    group: root
+
+- name: generate private key
+  shell: |
+    umask 077
+    wg genkey | tee /etc/wireguard/key.priv | wg pubkey > /etc/wireguard/key.pub
+  args:
+    creates: /etc/wireguard/key.priv
+
+## TODO: flesh this out in a way that is flexible enough for a generic usecase and
+##       not simply my own.
+#- name: choose IP address of wireguard interface
+#  pause:
+#    prompt: "Enter the IP address you'd like to use for the Wireguard interface: "
+#    echo: yes
+#  register: prompt_input
+#  creates: /sys/class/net/wg0
+#
+#- name: create wireguard interface
+#  shell: |
+#    - wg set wg0 listen-port 2882 private-key /etc/wireguard/key.priv allowed-ips {{ prompt_input }}/32
+#  creates: /sys/class/net/wg0
+#
+#- name: save wireguard configuration
+#  shell: |
+#    wg-quick save wg0
+#  creates: /etc/wireguard/wg0.conf
+#
+#- name: enable wireguard at boot
+#  systemd:
+#    name: wg-quick@wg0
+#    enabled: yes
+#    masked: no

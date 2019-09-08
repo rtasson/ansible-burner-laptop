@@ -2,6 +2,9 @@
 - name: install build-essential
   package: name=build-essential state=latest
 
+- name: install autotools-dev
+  package: name=autotools-dev state=latest
+
 - name: install autoconf
   package: name=autoconf state=latest
 
